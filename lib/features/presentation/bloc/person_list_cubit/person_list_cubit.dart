@@ -17,6 +17,8 @@ class PersonCubit extends Cubit<PersonState> {
 
   void loadPerson() async {
     if (state is PersonLoading) return;
+
+    final currentState = state;
   }
 
   String _mapFailureToMessage(Failure failure) {
