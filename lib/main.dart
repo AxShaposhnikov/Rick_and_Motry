@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rick_and_morty/core/common/app_colors.dart';
+import 'package:rick_and_morty/features/presentation/bloc/person_list_cubit/person_list_cubit.dart';
+import 'package:rick_and_morty/features/presentation/bloc/search_bloc/search_bloc.dart';
+import 'package:rick_and_morty/features/presentation/pages/home_page.dart';
+import 'package:rick_and_morty/locator_servise.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,12 +15,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<PersonListCubit>(
+            create: (context) => sl<PersonListCubit>()),
+        BlocProvider<PersonSearchBloc>(
+          create: (context) => sl<PersonSearchBloc>(),
+        )
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData.dark().copyWith(
+            backgroundColor: AppColors.mainBackground,
+            scaffoldBackgroundColor: AppColors.mainBackground),
+        home: const HomePage(),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }

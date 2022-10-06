@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty/core/error/failure.dart';
+import 'package:rick_and_morty/features/domain/entities/person_entity.dart';
 import 'package:rick_and_morty/features/domain/usecases/get_all_persons.dart';
 import 'package:rick_and_morty/features/presentation/bloc/person_list_cubit/person_list_state.dart';
 
@@ -8,10 +9,10 @@ const SERVER_FAILURE_MESSAGE = 'Server Failure';
 // ignore: constant_identifier_names
 const CACHE_FAILURE_MESSAGE = 'Cache Failure';
 
-class PersonCubit extends Cubit<PersonState> {
+class PersonListCubit extends Cubit<PersonState> {
   final GetAllPersons getAllPersons;
 
-  PersonCubit({required this.getAllPersons}) : super(const PersonEmpty());
+  PersonListCubit({required this.getAllPersons}) : super(const PersonEmpty());
 
   int page = 1;
 
@@ -19,6 +20,24 @@ class PersonCubit extends Cubit<PersonState> {
     if (state is PersonLoading) return;
 
     final currentState = state;
+
+    var oldPersons = <PersonEntity>[];
+    if (currentState is PersonLoaded) {
+      oldPersons = currentState.personList;
+    }
+
+    emit(PersonLoading(oldPersons, isFirstFetch: page == 1));
+
+    final failureOrPersons = await getAllPersons(PagePersonParams(page: page));
+
+    failureOrPersons.fold(
+        (error) => emit(PersonError(message: _mapFailureToMessage(error))),
+        (character) {
+      page++;
+      final persons = (state as PersonLoading).oldPersonList;
+      persons.addAll(character);
+      emit(PersonLoaded(persons));
+    });
   }
 
   String _mapFailureToMessage(Failure failure) {
