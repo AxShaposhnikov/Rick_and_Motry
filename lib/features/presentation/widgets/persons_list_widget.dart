@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty/features/domain/entities/person_entity.dart';
 import 'package:rick_and_morty/features/presentation/bloc/person_list_cubit/person_list_cubit.dart';
 import 'package:rick_and_morty/features/presentation/bloc/person_list_cubit/person_list_state.dart';
+import 'package:rick_and_morty/features/presentation/widgets/person_card_widget.dart';
 
 class PersonsList extends StatelessWidget {
   final scrollController = ScrollController();
@@ -34,12 +35,20 @@ class PersonsList extends StatelessWidget {
       } else if (state is PersonLoaded) {
         persons = state.personList;
       } else if (state is PersonError) {
-        return Text(state.message, style: TextStyle());
+        return Text(state.message,
+            style: const TextStyle(color: Colors.white, fontSize: 25));
       }
 
       return ListView.separated(
-          itemBuilder: (context, index) {},
-          separatorBuilder: (context, index) {},
+          controller: scrollController,
+          itemBuilder: (context, index) {
+            if (index < persons.length) {
+              return PersonCard(person: persons[index]);
+            } else {}
+          },
+          separatorBuilder: (context, index) {
+            return Divider(color: Colors.grey[400]);
+          },
           itemCount: persons.length);
     });
   }
