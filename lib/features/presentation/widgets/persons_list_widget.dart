@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty/features/domain/entities/person_entity.dart';
@@ -44,12 +46,18 @@ class PersonsList extends StatelessWidget {
           itemBuilder: (context, index) {
             if (index < persons.length) {
               return PersonCard(person: persons[index]);
-            } else {}
+            } else {
+              Timer(const Duration(milliseconds: 30), () {
+                scrollController
+                    .jumpTo(scrollController.position.maxScrollExtent);
+              });
+              return _loadingIndicator();
+            }
           },
           separatorBuilder: (context, index) {
             return Divider(color: Colors.grey[400]);
           },
-          itemCount: persons.length);
+          itemCount: persons.length + (isloading ? 1 : 0));
     });
   }
 

@@ -20,7 +20,50 @@ class PersonCard extends StatelessWidget {
             const SizedBox(
               width: 16,
             ),
-            Expanded(child: Column()),
+            Expanded(
+                child: Column(
+              children: [
+                Text(person.name),
+                const SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          color: (person.status == 'Alive')
+                              ? Colors.green
+                              : (person.status == 'Dead')
+                                  ? Colors.red
+                                  : Colors.grey,
+                          borderRadius: BorderRadius.circular(8)),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Expanded(
+                      child: Text('${person.status} - ${person.type}'),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                const Text('Last known location'),
+                const SizedBox(
+                  height: 16,
+                ),
+                Text(person.location.name),
+                const SizedBox(
+                  height: 16,
+                ),
+                const Text('Origin: '),
+                const SizedBox(
+                  height: 16,
+                ),
+                Text(person.origin.name),
+              ],
+            )),
             const SizedBox(width: 12)
           ],
         ));

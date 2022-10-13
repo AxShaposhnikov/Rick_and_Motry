@@ -7,6 +7,7 @@ abstract class PersonSearchEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+// ignore: must_be_immutable
 class SearchPersons extends PersonSearchEvent {
   String queryPerson;
 
