@@ -6,7 +6,9 @@ import 'package:rick_and_morty/features/presentation/bloc/search_bloc/search_blo
 import 'package:rick_and_morty/features/presentation/pages/person_screen.dart';
 import 'package:rick_and_morty/locator_servise.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await init();
   runApp(const MyApp());
 }
 

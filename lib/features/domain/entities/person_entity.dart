@@ -12,7 +12,7 @@ class PersonEntity extends Equatable {
   final String image;
   final List<String> episode;
   final String url;
-  final String created;
+  final DateTime created;
 
   const PersonEntity(
       {required this.id,

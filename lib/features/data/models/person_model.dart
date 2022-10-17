@@ -47,7 +47,7 @@ class PersonModel extends PersonEntity {
       episode:
           (json['episode'] as List<dynamic>).map((e) => e as String).toList(),
       url: json['url'] as String,
-      created: DateTime.parse(json['created'] as String),
+      created: DateTime.parse(json['created']),
     );
   }
 
@@ -64,7 +64,7 @@ class PersonModel extends PersonEntity {
       'image': image,
       'episode': episode,
       'url': url,
-      'created': created.toString()
+      'created': created.toIso8601String()
     };
   }
 }
