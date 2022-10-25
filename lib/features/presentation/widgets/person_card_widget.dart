@@ -18,7 +18,7 @@ class PersonCard extends StatelessWidget {
       child: Container(
           decoration: BoxDecoration(
             color: AppColors.cellBackground,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(15),
           ),
           child: Row(
             children: [

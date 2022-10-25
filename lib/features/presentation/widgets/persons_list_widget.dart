@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty/features/domain/entities/person_entity.dart';
@@ -55,7 +54,7 @@ class PersonsList extends StatelessWidget {
             }
           },
           separatorBuilder: (context, index) {
-            return Divider(color: Colors.grey[400]);
+            return const SizedBox(height: 15);
           },
           itemCount: persons.length + (isloading ? 1 : 0));
     });
