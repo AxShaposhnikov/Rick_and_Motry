@@ -44,7 +44,10 @@ class PersonsList extends StatelessWidget {
           controller: scrollController,
           itemBuilder: (context, index) {
             if (index < persons.length) {
-              return PersonCard(person: persons[index]);
+              return Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8),
+                child: PersonCard(person: persons[index]),
+              );
             } else {
               Timer(const Duration(milliseconds: 30), () {
                 scrollController
